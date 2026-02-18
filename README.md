@@ -17,7 +17,7 @@ Web clipboard with 4 persistent pages, multi-device sync (~1–2s), and no auth.
 
 ### 2. Create table
 
-In **SQL Editor**, run:
+In **SQL Editor**, run (or use `scripts/setup.sql`):
 
 ```sql
 CREATE TABLE IF NOT EXISTS clipboard_pages (

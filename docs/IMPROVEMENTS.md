@@ -52,9 +52,6 @@ Simplificaría cache, retries y estados de loading/error. Ahora está todo manua
 - Unit: hook useClipboardPage con mock de supabase
 - E2E: Playwright para "escribir → cambiar página → volver → ver contenido"
 
-### 11. Limpiar assets no usados
-`src/typescript.svg` parece sobrante del template vanilla. Revisar y borrar.
-
 ---
 
 ## Resumen rápido
