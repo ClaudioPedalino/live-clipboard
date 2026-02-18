@@ -39,6 +39,10 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -48,6 +52,7 @@ body {
   color: var(--text);
   background: var(--bg-app);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 .app {
@@ -593,4 +598,139 @@ body {
   background: var(--danger-bg);
   border: 1px solid rgba(239, 68, 68, 0.3);
   color: #f87171;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .header-brand {
+    font-size: 1rem;
+  }
+
+  .header-repo {
+    margin-left: auto;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.5rem;
+  }
+
+  .header-repo svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .nav-tabs {
+    flex: 1;
+    flex-wrap: wrap;
+    gap: 0.125rem;
+    min-width: 0;
+  }
+
+  .nav-tab {
+    padding: 0.5rem 0.65rem;
+    font-size: 0.8125rem;
+  }
+
+  .main {
+    padding: 0.75rem 1rem;
+  }
+
+  .clipboard-page {
+    padding: 4px;
+    box-shadow: 0 0 0 3px var(--page-color, transparent);
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .toolbar-left {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .toolbar-right {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .btn-toolbar {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8125rem;
+  }
+
+  .btn-toolbar kbd {
+    display: none;
+  }
+
+  .btn:hover {
+    transform: none;
+  }
+
+  .content-area {
+    padding: 1rem 1.25rem;
+    font-size: 14px;
+    min-height: 150px;
+  }
+
+  .footer {
+    padding: 0.5rem 1rem;
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+    font-size: 0.75rem;
+  }
+
+  .toast-container {
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    left: max(1rem, env(safe-area-inset-left));
+    right: max(1rem, env(safe-area-inset-right));
+  }
+
+  .remote-banner {
+    flex-wrap: wrap;
+    font-size: 0.8125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-brand {
+    text-align: center;
+  }
+
+  .header-repo {
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .header-repo span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+  }
+
+  .nav-tabs {
+    justify-content: center;
+  }
+
+  .nav-tab {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .main {
+    padding: 0.5rem 0.75rem;
+  }
 }
