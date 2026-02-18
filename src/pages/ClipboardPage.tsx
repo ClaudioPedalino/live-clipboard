@@ -20,6 +20,8 @@ export function ClipboardPage({ pageId }: Props) {
   } = useClipboardPage(pageId)
 
   const [clearConfirm, setClearConfirm] = useState(false)
+  const [copyFlash, setCopyFlash] = useState(false)
+  const [saveFlash, setSaveFlash] = useState(false)
 
   useEffect(() => {
     if (!clearConfirm) return
@@ -39,7 +41,9 @@ export function ClipboardPage({ pageId }: Props) {
   const handleCopy = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(content)
+      setCopyFlash(true)
       toast('Copied to clipboard', 'success')
+      setTimeout(() => setCopyFlash(false), 600)
     } catch {
       toast('Failed to copy', 'error')
     }
@@ -49,6 +53,29 @@ export function ClipboardPage({ pageId }: Props) {
     forceSave()
   }, [forceSave])
 
+  useEffect(() => {
+    if (saveStatus === 'saved') {
+      setSaveFlash(true)
+      const t = setTimeout(() => setSaveFlash(false), 600)
+      return () => clearTimeout(t)
+    }
+  }, [saveStatus])
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.key === 'a') {
+        e.preventDefault()
+        handleCopy()
+      }
+      if (e.ctrlKey && e.key === 's') {
+        e.preventDefault()
+        handleSave()
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [handleCopy, handleSave])
+
   return (
     <div className={`clipboard-page clipboard-page--${pageId}`}>
       <div className="clipboard-page-inner">
@@ -56,20 +83,30 @@ export function ClipboardPage({ pageId }: Props) {
         <div className="toolbar-left">
           <button
             type="button"
-            className={`btn btn-danger ${clearConfirm ? 'confirm' : ''}`}
+            className={`btn btn-danger btn-toolbar ${clearConfirm ? 'confirm' : ''}`}
             onClick={handleClear}
             title={clearConfirm ? 'Click again to confirm' : 'Clear all'}
           >
             <IconTrash />
             <span>{clearConfirm ? 'Confirm clear?' : 'Clear'}</span>
           </button>
-          <button type="button" className="btn" onClick={handleCopy} title="Copy to clipboard">
+          <button
+            type="button"
+            className={`btn btn-toolbar ${copyFlash ? 'btn-flash-success' : ''}`}
+            onClick={handleCopy}
+            title="Copy to clipboard (Ctrl+A)"
+          >
             <IconCopy />
-            <span>Copy</span>
+            <span>Copy <kbd>Ctrl+A</kbd></span>
           </button>
-          <button type="button" className="btn btn-primary" onClick={handleSave} title="Save now">
+          <button
+            type="button"
+            className={`btn btn-primary btn-toolbar ${saveFlash ? 'btn-flash-success' : ''}`}
+            onClick={handleSave}
+            title="Save now (Ctrl+S)"
+          >
             <IconSave />
-            <span>Save</span>
+            <span>Save <kbd>Ctrl+S</kbd></span>
           </button>
           {otherEditing && (
             <span className="indicator other-editing">Someone is editing…</span>
