@@ -56,6 +56,14 @@ body {
   flex-direction: column;
 }
 
+.footer {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+}
+
 /* Header */
 .header {
   background: var(--bg-card);

@@ -46,6 +46,9 @@ function AppContent() {
           ))}
         </Routes>
       </main>
+      <footer className="footer">
+        <span>v{__APP_VERSION__}</span>
+      </footer>
     </div>
   )
 }
